@@ -1,0 +1,3 @@
+Congratuliations you've solved the Lab 
+
+Your flag is : IDOR_Com_Exect77548

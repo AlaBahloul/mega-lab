@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .pospos {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .pospos2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+    </style>
+    <!--<script th:inline="javascript">
+        /*<![CDATA[*/   var user= /*[[${username}]]*/ 'default value';
+                        var pass= /*[[${password}]]*/ 'default value';
+        /*]]>*/
+        window.addEventListener('DOMContentLoaded', function() {
+        sessionStorage.setItem('username', user);
+        sessionStorage.setItem('password', pass);
+
+    }); </script>
+  -->
+</head>
+<body>
+<div class="pospos">
+    <a href="http://localhost:8085/XSS/login" type="button" class="btn btn-danger" >Logout</a>
+</div>
+<div class="pospos2">
+    <a href="http://localhost:8085/IDOR/login" type="button" class="btn btn-success" >Next Step</a>
+</div>
+<div class="container">
+    <h2>This is Onlyyyy for Allela</h2>
+
+    <span>
+  <h2 style="display: inline-block;">Welcome !</h2>
+  <h2 th:text="${username}" style="display: inline-block;"></h2>
+    </span>
+    <h1 class="text-center mb-4">Add Institution</h1>
+    <form th:action="@{/XSS/get}" method="get">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" required>
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" class="form-control" id="state" name="state" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Institution</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">List of Institutions</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="institution : ${institutions}">
+            <td th:text="${institution.name}"></td>
+            <td th:text="${institution.description}"></td>
+            <td th:utext="${institution.state}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

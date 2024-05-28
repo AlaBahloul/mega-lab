@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDOR Lab page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)), url('https://th.bing.com/th/id/R.05379ffbb49f6f138783a342351cb75c?rik=Oyq24W2XzzduNg&pid=ImgRaw&r=0');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            font-size: 10rem;
+            font-family: cursive;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-family: cursive;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            padding: 15px 20px;
+            background: #52caee;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #333333;
+            border-radius: .25rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.808)
+        }
+        .pospos {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .pospos1 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="pospos1">
+        <!--<a th:href="http://localhost:8085/details?id=${id}" type="button" class="btn btn-warning" >Account Details</a>-->
+        <a th:href="@{details(id=${id})}" type="button" class="btn btn-warning">Account Details</a>
+
+    </div>
+
+    <div class="pospos">
+        <a href="http://localhost:8085/IDOR/login" type="button" class="btn btn-danger" >Logout</a>
+    </div>
+    <h1 th:text="${username}" ></h1>
+    <h2>Welcome to the IDOR Lab </h2>
+   <!-- <p>The page you are looking for does not exist.</p>
+    <p><a href="#">Visit Homepage</a></p>
+    -->
+</div>
+</body>
+
+</html>

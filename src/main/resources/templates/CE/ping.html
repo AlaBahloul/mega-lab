@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Command Execution</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        #output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+
+    <script>
+        let isCommandExecuting = false;
+        function executeCommand() {
+            if (isCommandExecuting) {
+                alert('A command is already executing. Please wait for it to complete.');
+                return;
+            }
+            const commandInput = document.getElementById('comm');
+            const outputContainer = document.getElementById('output');
+            outputContainer.innerHTML = '';
+
+            isCommandExecuting = true;
+
+            let eventSource = new EventSource('/execute3?comm=' + encodeURIComponent(commandInput.value));
+
+            eventSource.onmessage = function(event) {
+                const line = document.createElement('div');
+                line.textContent = event.data;
+                outputContainer.appendChild(line);
+            };
+
+            eventSource.onerror = function(event) {
+                const errorMessage = document.createElement('div');
+                errorMessage.textContent = 'Error executing command: ' + event.data;
+                //outputContainer.appendChild(errorMessage);
+                eventSource.close();
+                isCommandExecuting = false;
+            };
+            eventSource.onclose = function() {
+                console.log('EventSource connection closed');
+                isCommandExecuting=false;
+            };
+
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Ping Command</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="comm">Enter the IP Address you want to Ping:</label>
+                    <input type="text" class="form-control" id="comm" name="comm" th:value="${comm}">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="executeCommand()">Execute</button>
+            </form>
+            <div id="output" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

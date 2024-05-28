@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 50px;
+        }
+        .pospos {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="pospos">
+    <a href="http://localhost:8085/IDOR/login" type="button" class="btn btn-danger" >Logout</a>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h1>Your Account Details</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>First name:</h4>
+                    <p th:text="${user.getFirstname()}"></p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Last name:</h4>
+                    <p th:text="${user.getLastname()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Username:</h4>
+                    <p th:text="${user.getUsername()}"></p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Address:</h4>
+                    <p th:text="${user.getAddress()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>City:</h4>
+                    <p th:text="${user.getCity()}"></p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Phone number:</h4>
+                    <p th:text="${user.getPhone()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
